@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" styleClass="background-color" stylesheets="@../aplicacao/aplicacao.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.TelaPrincipalControlador">
+   <children>
+      <Button fx:id="btClientes" layoutX="50.0" layoutY="60.0" mnemonicParsing="false" onAction="#onBtClientesAction" prefHeight="150.0" prefWidth="200.0" styleClass="botoes" stylesheets="@../aplicacao/aplicacao.css" text="Clientes">
+         <graphic>
+            <ImageView fitHeight="78.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" styleClass="alinhamento">
+               <image>
+                  <Image url="@../imagens/user.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btTransacoes" layoutX="550.0" layoutY="270.0" mnemonicParsing="false" onAction="#onBtTransacoesAction" prefHeight="150.0" prefWidth="200.0" styleClass="botoes" stylesheets="@../aplicacao/aplicacao.css" text="Transações">
+         <graphic>
+            <ImageView fitHeight="78.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" styleClass="alinhamento">
+               <image>
+                  <Image url="@../imagens/shopping-cart.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btEstoque" layoutX="300.0" layoutY="60.0" mnemonicParsing="false" onAction="#onBtEstoqueAction" prefHeight="150.0" prefWidth="200.0" styleClass="botoes" stylesheets="@../aplicacao/aplicacao.css" text="Estoque">
+         <graphic>
+            <ImageView fitHeight="78.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" styleClass="alinhamento">
+               <image>
+                  <Image url="@../imagens/store-alt.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btProdutos" layoutX="300.0" layoutY="270.0" mnemonicParsing="false" onAction="#onBtProdutosAction" prefHeight="150.0" prefWidth="200.0" styleClass="botoes" stylesheets="@../aplicacao/aplicacao.css" text="Produtos">
+         <graphic>
+            <ImageView fitHeight="78.0" fitWidth="68.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="alinhamento">
+               <image>
+                  <Image url="@../imagens/backspace.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btDepartamentos" layoutX="550.0" layoutY="60.0" mnemonicParsing="false" onAction="#onBtDepartamentosAction" prefHeight="150.0" prefWidth="200.0" styleClass="botoes" stylesheets="@../aplicacao/aplicacao.css" text="Departamentos">
+         <graphic>
+            <ImageView fitHeight="78.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="alinhamento">
+               <image>
+                  <Image url="@../imagens/address-card.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btFuncionarios" layoutX="50.0" layoutY="270.0" mnemonicParsing="false" onAction="#onBtFuncionariosAction" prefHeight="150.0" prefWidth="200.0" styleClass="botoes" stylesheets="@../aplicacao/aplicacao.css" text="Funcionarios">
+         <graphic>
+            <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" styleClass="alinhamento">
+               <image>
+                  <Image url="@../imagens/user-cog.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

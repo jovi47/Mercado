@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label id="lunas" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="481.0" styleClass="labellistas" stylesheets="@../aplicacao/aplicacao.css" text="Tabela de transações" />
+      <TableView prefHeight="471.0" prefWidth="1000.0" styleClass="background-color" stylesheets="@../aplicacao/aplicacao.css">
+        <columns>
+          <TableColumn id="colunas" prefWidth="68.0" text="Id" />
+          <TableColumn id="colunas2" prefWidth="111.0" text="Id do cliente" />
+            <TableColumn id="colunas" prefWidth="69.0" text="Id do carrinho" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</VBox>

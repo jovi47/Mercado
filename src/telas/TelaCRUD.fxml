@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" styleClass="background-color" stylesheets="@../aplicacao/aplicacao.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.TelaCRUDControlador">
+   <content>
+      <VBox prefHeight="30.0" prefWidth="800.0" styleClass="background-color" stylesheets="@../aplicacao/aplicacao.css">
+         <children>
+            <MenuBar prefHeight="50.0" prefWidth="800.0" styleClass="background-color" stylesheets="@../aplicacao/aplicacao.css">
+              <menus>
+                  <Menu id="colunas" fx:id="menuEstoque" mnemonicParsing="false" onAction="#onMenuEstoqueAction" text="Estoque">
+                     <items>
+                        <MenuItem id="colunas2" mnemonicParsing="false" text="Ir" />
+                     </items></Menu>
+                  <Menu id="colunas2" fx:id="menuTransacoes" mnemonicParsing="false" onAction="#onMenuTransacoesAction" text="Transacoes">
+                     <items>
+                        <MenuItem id="colunas" mnemonicParsing="false" text="Ir" />
+                     </items></Menu>
+                  <Menu id="colunas" fx:id="menuProdutos" mnemonicParsing="false" onAction="#onMenuProdutosAction" text="Produtos">
+                     <items>
+                        <MenuItem id="colunas2" mnemonicParsing="false" text="Ir" />
+                     </items></Menu>
+                <Menu id="colunas2" fx:id="menuFuncionarios" mnemonicParsing="false" onAction="#onMenuFuncionariosAction" text="Funcionários">
+                     <items>
+                        <MenuItem id="colunas" mnemonicParsing="false" text="Ir" />
+                     </items></Menu>
+                  <Menu id="colunas" fx:id="menuDepartamentos" mnemonicParsing="false" onAction="#onMenuDepartamentosAction" text="Departamentos">
+                     <items>
+                        <MenuItem id="colunas2" mnemonicParsing="false" text="Ir" />
+                     </items></Menu>
+                <Menu id="colunas2" fx:id="menuClientes" mnemonicParsing="false" onAction="#onMenuClientesAction" text="Clientes">
+                     <items>
+                        <MenuItem id="colunas" mnemonicParsing="false" text="Ir" />
+                     </items></Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label id="lunas" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="481.0" styleClass="labellistas" stylesheets="@../aplicacao/aplicacao.css" text="Novo Funcionário" />
+      <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="background-color" stylesheets="@../aplicacao/aplicacao.css">
+        <items>
+          <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" styleClass="botoesLista" stylesheets="@../aplicacao/aplicacao.css" text="+">
+               <graphic>
+                  <ImageView fitHeight="58.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true" styleClass="telaprincipal">
+                     <image>
+                        <Image url="@../imagens/user-cog.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+        </items>
+      </ToolBar>
+      <TableView prefHeight="400.0" prefWidth="100.0" styleClass="background-color" stylesheets="@../aplicacao/aplicacao.css">
+        <columns>
+          <TableColumn id="colunas" prefWidth="68.0" text="Id" />
+          <TableColumn id="colunas2" prefWidth="111.0" text="Nome" />
+            <TableColumn id="colunas" prefWidth="69.0" text="CPF" />
+            <TableColumn id="colunas2" prefWidth="72.0" text="CEP" />
+            <TableColumn id="colunas" prefWidth="86.0" text="Telefone" />
+            <TableColumn id="colunas2" prefWidth="63.0" text="Data de nascimento" />
+            <TableColumn id="colunas" prefWidth="102.0" text="Departamento" />
+            <TableColumn id="colunas2" text="Salário" />
+            <TableColumn id="colunas" minWidth="0.0" prefWidth="89.0" text="Inicio do contrato" />
+            <TableColumn id="colunas2" prefWidth="88.0" text="Fim do contrato" />
+            <TableColumn id="colunas" prefWidth="86.0" />
+            <TableColumn id="colunas2" prefWidth="185.0" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</VBox>
