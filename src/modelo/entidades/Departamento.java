@@ -19,6 +19,10 @@ public class Departamento implements Serializable {
 		return id;
 	}
 
+	@Override
+	public String toString() {
+		return ""+nome;
+	}
 	public void setId(Integer id) {
 		this.id = id;
 	}

@@ -17,6 +17,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import modelo.servicos.ClienteService;
 import modelo.servicos.DepartamentoService;
+import modelo.servicos.FuncionarioService;
 import telas.util.Alertas;
 
 public class TelaCRUDControlador implements Initializable {
@@ -68,13 +69,17 @@ public class TelaCRUDControlador implements Initializable {
 
 	@FXML
 	public void onMenuTransacoesAction() {
-		loadView("/telas/ListarTransacoes.fxml", x -> {
+		loadView("/telas/ListarFuncionarios.fxml",(ListarFuncionariosControlador controller) -> {
+			controller.setFuncionarioService(new FuncionarioService());
+			controller.updateTableView();
 		});
 	}
 
 	@FXML
 	public void onMenuFuncionariosAction() {
-		loadView("/telas/ListarFuncionarios.fxml", x -> {
+		loadView("/telas/ListarFuncionarios.fxml",(ListarFuncionariosControlador controller) -> {
+			controller.setFuncionarioService(new FuncionarioService());
+			controller.updateTableView();
 		});
 	}
 

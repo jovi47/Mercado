@@ -33,10 +33,11 @@ import telas.util.Limitacoes;
 import telas.util.Utils;
 
 public class FormularioClientesControlador implements Initializable {
-	
+
 	public TextField getTxtId() {
 		return txtId;
 	}
+
 	@FXML
 	private TextField txtId;
 
@@ -157,11 +158,11 @@ public class FormularioClientesControlador implements Initializable {
 		cliente.setNome(txtNome.getText());
 		if (txtCPF.getText() == null || txtCPF.getText().trim().equals("")) {
 			exception.addError("cpf", "  Campo vazio");
+		} else if (!Utils.verificarCpf(txtCPF.getText())) {
+			exception.addError("cpfInvalido", "  CPF invalido");
+			exception.removeError("cpf");
 		}
 		cliente.setCPF(txtCPF.getText());
-		if(!Utils.verificarCpf(cliente.getCPF())) {
-			exception.addError("cpfInvalido", "  CPF invalido");
-		}
 		if (dpDataNascimento.getValue() == null) {
 			exception.addError("dataNascimento", "  Campo vazio");
 		} else {

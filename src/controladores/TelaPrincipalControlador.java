@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import modelo.servicos.ClienteService;
 import modelo.servicos.DepartamentoService;
+import modelo.servicos.FuncionarioService;
 import telas.util.Alertas;
 
 public class TelaPrincipalControlador implements Initializable {
@@ -50,7 +51,9 @@ public class TelaPrincipalControlador implements Initializable {
 	
 	@FXML 
 	public void onBtFuncionariosAction() {
-		carregarTela("/telas/ListarFuncionarios.fxml",x -> {
+		carregarTela("/telas/ListarFuncionarios.fxml",(ListarFuncionariosControlador controller) -> {
+			controller.setFuncionarioService(new FuncionarioService());
+			controller.updateTableView();
 		});
 	}
 	

@@ -50,11 +50,11 @@ public class Utils {
 						setText(null);
 					} else {
 						setText(sdf.format(item.getTime()));
-					}
-				}
+				}}
 			};
 			return cell;
 		});
+		
 	}
 
 	public static <T> void formatTableColumnDouble(TableColumn<T, Double> tableColumn, int decimalPlaces) {
@@ -102,13 +102,13 @@ public class Utils {
 			}
 		});
 	}
-	
+
 	public static void addIcon(Alert alert) {
 		final Image icone = new Image("/imagens/shopping-cart.png");
 		Stage dialogStage = (Stage) alert.getDialogPane().getScene().getWindow();
 		dialogStage.getIcons().add(icone);
 	}
-	
+
 	public static Boolean verificarCpf(String cpfVerificar) {
 		String cpf = cpfVerificar.substring(0, 3) + cpfVerificar.substring(4, 7) + cpfVerificar.substring(8, 11)
 				+ cpfVerificar.substring(12, 14);
