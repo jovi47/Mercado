@@ -201,15 +201,19 @@ public class FormularioFuncionarioControlador implements Initializable {
 		if (dpInicioContrato.getValue() == null) {
 			exception.addError("inicioContrato", "  Campo vazio");
 		} else {
-			Instant instant = Instant.from(dpDataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()));
+			Instant instant = Instant.from(dpInicioContrato.getValue().atStartOfDay(ZoneId.systemDefault()));
 			Calendar x = Calendar.getInstance();
 			x.setTime(Date.from(instant));
 			cliente.setInicioContrato(x);
 		}
-		Instant instant = Instant.from(dpDataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()));
-		Calendar x = Calendar.getInstance();
-		x.setTime(Date.from(instant));
-		cliente.setFimContrato(x);
+		if (dpFimContrato.getValue() != null) {
+			Instant instant = Instant.from(dpFimContrato.getValue().atStartOfDay(ZoneId.systemDefault()));
+			Calendar x = Calendar.getInstance();
+			x.setTime(Date.from(instant));
+			cliente.setFimContrato(x);
+		}else {
+			cliente.setFimContrato(null);
+		}
 		if (txtCEP.getText() == null || txtCEP.getText().trim().equals("")) {
 			exception.addError("cep", "  Campo vazio");
 		}
@@ -253,10 +257,9 @@ public class FormularioFuncionarioControlador implements Initializable {
 			String s = sdf.format(x.getTime());
 			dpInicioContrato.setValue(LOCAL_DATE(String.valueOf(s)));
 		}
-		x = entity.getFimContrato();
-		if (x != null) {
-			String s = sdf.format(x.getTime());
-			dpFimContrato.setValue(LOCAL_DATE(String.valueOf(s)));
+		
+		if (entity.getFimContrato() != null) {
+			dpFimContrato.setValue(LOCAL_DATE(String.valueOf(entity.getFimContrato())));
 		}
 		if (entity.getDepartamento() == null) {
 			cbDepartamento.getSelectionModel().selectFirst();

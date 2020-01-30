@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,19 +34,23 @@ public class FuncionarioDaoJDBC implements FuncionarioDao {
 	public void insert(Funcionario obj) {
 		PreparedStatement st = null;
 		try {
-				st = conn.prepareStatement("INSERT INTO funcionario (nome, cpf, cep , telefone, data_nascimento, "
-						+ "inicio_contrato, salario, departamentoId, fim_contrato) " + ""
-								+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)",
-						Statement.RETURN_GENERATED_KEYS);
-				Date x = obj.getFimContrato().getTime();
-				st.setDate(9, new java.sql.Date(x.getTime()));
+			st = conn.prepareStatement("INSERT INTO funcionario (nome, cpf, cep , telefone, data_nascimento, "
+					+ "inicio_contrato, salario, departamentoId, fim_contrato) " + ""
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
+			if (obj.getFimContrato() != null) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				Date data = sdf.parse(obj.getFimContrato());
+				st.setDate(9, new java.sql.Date(data.getTime()));
+			} else {
+				st.setNull(9, Types.DATE);
+			}
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getCPF());
-			x = obj.getDataNascimento().getTime();
-			st.setDate(5, new java.sql.Date(x.getTime()));
+			Date y = obj.getDataNascimento().getTime();
+			st.setDate(5, new java.sql.Date(y.getTime()));
 			st.setString(3, obj.getCEP());
 			st.setString(4, obj.getTelefone());
-			x = obj.getInicioContrato().getTime();
+			Date x = obj.getInicioContrato().getTime();
 			st.setDate(6, new java.sql.Date(x.getTime()));
 			st.setDouble(7, obj.getSalario());
 			st.setInt(8, obj.getDepartamento().getId());
@@ -71,15 +77,12 @@ public class FuncionarioDaoJDBC implements FuncionarioDao {
 	private void tirarFormatacao(Funcionario obj) {
 		String cpf = obj.getCPF().substring(0, 3) + obj.getCPF().substring(4, 7) + obj.getCPF().substring(8, 11)
 				+ obj.getCPF().substring(12, 14);
-		System.out.println(cpf);
 		obj.setCPF(cpf);
 		String telefone = obj.getTelefone().substring(1, 3) + obj.getTelefone().substring(4, 9)
 				+ obj.getTelefone().substring(10, 14);
 		obj.setTelefone(telefone);
-		System.out.println(telefone);
 		String cep = obj.getCEP().substring(0, 5) + obj.getCEP().substring(6, 9);
 		obj.setCEP(cep);
-		System.out.println(cep);
 	}
 
 	@Override
@@ -97,8 +100,13 @@ public class FuncionarioDaoJDBC implements FuncionarioDao {
 			st.setDate(5, new java.sql.Date(x.getTime()));
 			x = obj.getInicioContrato().getTime();
 			st.setDate(6, new java.sql.Date(x.getTime()));
-			x = obj.getFimContrato().getTime();
-			st.setDate(7,new java.sql.Date(x.getTime()) );
+			if (obj.getFimContrato() != null) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				Date data = sdf.parse(obj.getFimContrato());
+				st.setDate(7, new java.sql.Date(data.getTime()));
+			} else {
+				st.setNull(7, Types.DATE);
+			}
 			st.setDouble(8, obj.getSalario());
 			st.setInt(9, obj.getDepartamento().getId());
 			st.setInt(10, obj.getId());
@@ -146,13 +154,15 @@ public class FuncionarioDaoJDBC implements FuncionarioDao {
 //		}
 		return null;
 	}
-	private Departamento instanciarDepartamento(ResultSet rs) throws SQLException{
+
+	private Departamento instanciarDepartamento(ResultSet rs) throws SQLException {
 		Departamento dep = new Departamento();
 		dep.setId(rs.getInt("departamentoId"));
 		dep.setName(rs.getString("depNome"));
 		return dep;
 	}
-	private Funcionario instanciarFuncionario(ResultSet rs,Departamento dep) throws SQLException {
+
+	private Funcionario instanciarFuncionario(ResultSet rs, Departamento dep) throws SQLException {
 		Funcionario cliente = new Funcionario();
 		cliente.setId(rs.getInt("id"));
 		cliente.setNome(rs.getString("nome"));
@@ -162,27 +172,34 @@ public class FuncionarioDaoJDBC implements FuncionarioDao {
 		cliente.setSalario(rs.getDouble("salario"));
 		cliente.setDepartamento(dep);
 		Calendar x = Calendar.getInstance();
-		x.setTimeInMillis(new java.util.Date(rs.getTimestamp("data_nascimento").getTime()).getTime());
+		Date z = rs.getDate(5);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		x.setTimeInMillis(z.getTime());
 		cliente.setDataNascimento(x);
-		Calendar y = Calendar.getInstance();
-		y.setTimeInMillis(new java.util.Date(rs.getTimestamp("inicio_contrato").getTime()).getTime());
-		cliente.setInicioContrato(x);
-		Calendar z = Calendar.getInstance();
-		z.setTimeInMillis(new java.util.Date(rs.getTimestamp("fim_contrato").getTime()).getTime());
-		if(z!=null) {
-			cliente.setFimContrato(x);			
+		Date y = rs.getDate(6);
+		Calendar o = Calendar.getInstance();
+		o.setTimeInMillis(y.getTime());
+		cliente.setInicioContrato(o);
+		Date a = (Date) rs.getObject("fim_contrato");
+		if (a != null) {
+			Calendar u = Calendar.getInstance();
+			u.setTimeInMillis(a.getTime());
+			cliente.setFimContrato(u);
+		} else {
+			cliente.setFimContrato(null);
 		}
-		System.out.println(cliente.toString());
 		return cliente;
 	}
+
 	@Override
 	public List<Funcionario> findAll() {
 		PreparedStatement st = null;
 		List<Funcionario> sellers = new ArrayList<Funcionario>();
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT funcionario.*,departamento.nome as depNome" + " FROM funcionario INNER JOIN "
-					+ "departamento ON funcionario.departamentoId = " + "departamento.id  ORDER BY funcionario.nome");
+			st = conn.prepareStatement("SELECT funcionario.*,departamento.nome as depNome"
+					+ " FROM funcionario INNER JOIN " + "departamento ON funcionario.departamentoId = "
+					+ "departamento.id  ORDER BY funcionario.nome");
 			rs = st.executeQuery();
 			Map<Integer, Departamento> map = new HashMap<>();
 			while (rs.next()) {
@@ -198,7 +215,7 @@ public class FuncionarioDaoJDBC implements FuncionarioDao {
 		} catch (SQLException e) {
 			Alertas.mostrarAlerta("Errorss", null, e.getMessage(), AlertType.ERROR);
 			throw new DbException(e.getMessage());
-		
+
 		} catch (DbException e) {
 			Alertas.mostrarAlerta("Errorss", null, e.getMessage(), AlertType.ERROR);
 			throw new DbException(e.getMessage());
@@ -206,11 +223,9 @@ public class FuncionarioDaoJDBC implements FuncionarioDao {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 		}
-	
+
 	}
 
-	
-	
 	@Override
 	public List<Funcionario> findByDepartment(Departamento department) {
 		//

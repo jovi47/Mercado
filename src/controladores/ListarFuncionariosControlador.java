@@ -2,7 +2,6 @@ package controladores;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +9,6 @@ import java.util.ResourceBundle;
 
 import aplicacao.Programa;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +27,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import modelo.entidades.Departamento;
 import modelo.entidades.Funcionario;
 import modelo.servicos.DepartamentoService;
@@ -66,7 +63,7 @@ public class ListarFuncionariosControlador implements Initializable, Observador 
 	private TableColumn<Funcionario, Calendar> tableColumnInicioContrato;
 
 	@FXML
-	private TableColumn<Funcionario, Calendar> tableColumnFimContrato;
+	private TableColumn<Funcionario, String> tableColumnFimContrato;
 
 	@FXML
 	private TableColumn<Funcionario, Double> tableColumnSalario;
@@ -115,7 +112,6 @@ public class ListarFuncionariosControlador implements Initializable, Observador 
 		Utils.formatTableColumnDouble(tableColumnSalario, 2);
 		tableColumnDepartamento.setCellValueFactory(new PropertyValueFactory<>("departamento"));
 		Utils.formatTableColumnDate(tableColumnDataNascimento, "dd/MM/yyyy");
-		Utils.formatTableColumnDate(tableColumnFimContrato, "dd/MM/yyyy");
 		Utils.formatTableColumnDate(tableColumnInicioContrato, "dd/MM/yyyy");
 		Stage stage = (Stage) Programa.getStage().getScene().getWindow();
 		tableViewFuncionario.prefHeightProperty().bind(stage.heightProperty());
