@@ -173,7 +173,6 @@ public class FuncionarioDaoJDBC implements FuncionarioDao {
 		cliente.setDepartamento(dep);
 		Calendar x = Calendar.getInstance();
 		Date z = rs.getDate(5);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		x.setTimeInMillis(z.getTime());
 		cliente.setDataNascimento(x);
 		Date y = rs.getDate(6);

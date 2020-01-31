@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import modelo.servicos.ClienteService;
 import modelo.servicos.DepartamentoService;
 import modelo.servicos.FuncionarioService;
+import modelo.servicos.ProdutoService;
 import telas.util.Alertas;
 
 public class TelaCRUDControlador implements Initializable {
@@ -47,7 +48,9 @@ public class TelaCRUDControlador implements Initializable {
 	}
 	@FXML
 	public void onMenuProdutosAction() {
-		loadView("/telas/ListarProdutos.fxml", x -> {
+		loadView("/telas/ListarProdutos.fxml",(ListarProdutosControlador controller) -> {
+			controller.setProdutoService(new ProdutoService());
+			controller.updateTableView();
 		});
 	}
 

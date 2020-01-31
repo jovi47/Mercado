@@ -172,7 +172,7 @@ public class ListarFuncionariosControlador implements Initializable, Observador 
 				setGraphic(button);
 				button.setId("btEditar");
 				button.setOnAction(
-						event -> createDialogForm(obj, "/telas/FormularioFuncionario.fxml", Programa.getStage()));
+						event -> createDialogForm(obj, "/telas/FormularioProduto.fxml", Programa.getStage()));
 			}
 		});
 	}

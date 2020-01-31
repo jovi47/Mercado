@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import modelo.servicos.ClienteService;
 import modelo.servicos.DepartamentoService;
 import modelo.servicos.FuncionarioService;
+import modelo.servicos.ProdutoService;
 import telas.util.Alertas;
 
 public class TelaPrincipalControlador implements Initializable {
@@ -79,7 +80,9 @@ public class TelaPrincipalControlador implements Initializable {
 	
 	@FXML 
 	public void onBtProdutosAction() {
-		carregarTela("/telas/ListarProdutos.fxml",x -> {
+		carregarTela("/telas/ListarProdutos.fxml",(ListarProdutosControlador controller) -> {
+			controller.setProdutoService(new ProdutoService());
+			controller.updateTableView();
 		});
 	}
 	

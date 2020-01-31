@@ -4,6 +4,7 @@ import db.DB;
 import modelo.dao.impl.ClienteDaoJDBC;
 import modelo.dao.impl.DepartamentoDaoJDBC;
 import modelo.dao.impl.FuncionarioDaoJDBC;
+import modelo.dao.impl.ProdutoDaoJDBC;
 
 public class FabricaDao {
 
@@ -18,5 +19,9 @@ public class FabricaDao {
 	
 	public static FuncionarioDao criarFuncionarioDao() {
 		return new FuncionarioDaoJDBC(DB.getConnection());
+	}
+	
+	public static ProdutoDao criarProdutoDao() {
+		return new ProdutoDaoJDBC(DB.getConnection());
 	}
 }
