@@ -11,12 +11,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import modelo.servicos.ClienteService;
 import modelo.servicos.DepartamentoService;
+import modelo.servicos.EstoqueService;
 import modelo.servicos.FuncionarioService;
 import modelo.servicos.ProdutoService;
 import telas.util.Alertas;
@@ -43,7 +44,9 @@ public class TelaCRUDControlador implements Initializable {
 
 	@FXML
 	public void onMenuEstoqueAction() {
-		loadView("/telas/ListarEstoque.fxml", x -> {
+		loadView("/telas/ListarEstoque.fxml",(ListarEstoqueControlador controller) -> {
+			controller.setService(new EstoqueService());
+			controller.updateTableView();
 		});
 	}
 	@FXML

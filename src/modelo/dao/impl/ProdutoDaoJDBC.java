@@ -11,7 +11,6 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import modelo.dao.ProdutoDao;
-import modelo.entidades.Departamento;
 import modelo.entidades.Produto;
 
 public class ProdutoDaoJDBC implements ProdutoDao{
@@ -76,9 +75,28 @@ public class ProdutoDaoJDBC implements ProdutoDao{
 	}
 
 	@Override
-	public Departamento findById(Integer id) {
-		
-		return null;
+	public Produto findById(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT * from produto where id = ?");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Produto obj = new Produto();
+				obj.setId(rs.getInt("id"));
+				obj.setNome(rs.getString("nome"));
+				obj.setDescricao(rs.getString("descricao"));
+				obj.setPreco(rs.getDouble("preco"));
+				return obj;
+			}
+			return null;
+		} catch (Exception e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

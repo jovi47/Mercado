@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import modelo.servicos.ClienteService;
 import modelo.servicos.DepartamentoService;
+import modelo.servicos.EstoqueService;
 import modelo.servicos.FuncionarioService;
 import modelo.servicos.ProdutoService;
 import telas.util.Alertas;
@@ -66,7 +67,9 @@ public class TelaPrincipalControlador implements Initializable {
 	
 	@FXML 
 	public void onBtEstoqueAction() {
-		carregarTela("/telas/ListarEstoque.fxml",x -> {
+		carregarTela("/telas/ListarEstoque.fxml",(ListarEstoqueControlador controller) -> {
+			controller.setService(new EstoqueService());
+			controller.updateTableView();
 		});
 	}
 	

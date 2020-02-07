@@ -25,4 +25,8 @@ public class ProdutoService {
 		public void remove(Produto obj) {
 			dao.deleteById(obj.getId());
 		}
+		
+		public Produto findById(Integer id) {
+			return dao.findById(id);
+		}
 }

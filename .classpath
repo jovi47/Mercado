@@ -5,5 +5,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySqlConnector"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/kirit/java-libs/javafx-sdk-11.0.2/lib/controlsfx-8.40.14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kirit/java-libs/javafx-sdk-11.0.2/lib/controlsfx-samples-8.40.14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kirit/java-libs/javafx-sdk-11.0.2/lib/fxsampler-1.0.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
