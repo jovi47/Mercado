@@ -28,9 +28,9 @@ public class ProductDaoJDBC implements ProductDao{
 		try {
 			st = conn.prepareStatement("INSERT INTO produto (nome, descricao, preco) " + ""
 					+ "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, obj.getNome());
-			st.setString(2, obj.getDescricao());
-			st.setDouble(3, obj.getPreco());
+			st.setString(1, obj.getName());
+			st.setString(2, obj.getDescription());
+			st.setDouble(3, obj.getPrice());
 			int rowsAffected = st.executeUpdate();
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
@@ -55,9 +55,9 @@ public class ProductDaoJDBC implements ProductDao{
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("UPDATE produto SET nome = ?, descricao = ?, preco = ?  WHERE id = ? ");
-			st.setString(1, obj.getNome());
-			st.setString(2,obj.getDescricao());
-			st.setDouble(3, obj.getPreco());
+			st.setString(1, obj.getName());
+			st.setString(2,obj.getDescription());
+			st.setDouble(3, obj.getPrice());
 			st.setInt(4, obj.getId());
 			st.executeUpdate();
 		} catch (Exception e) {
@@ -70,7 +70,16 @@ public class ProductDaoJDBC implements ProductDao{
 
 	@Override
 	public void deleteById(Integer id) {
-	
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("DELETE FROM produto Where id = ? ");
+			st.setInt(1, id);
+			st.executeUpdate();
+		} catch (Exception e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 		
 	}
 
@@ -85,9 +94,9 @@ public class ProductDaoJDBC implements ProductDao{
 			if (rs.next()) {
 				Product obj = new Product();
 				obj.setId(rs.getInt("id"));
-				obj.setNome(rs.getString("nome"));
-				obj.setDescricao(rs.getString("descricao"));
-				obj.setPreco(rs.getDouble("preco"));
+				obj.setName(rs.getString("nome"));
+				obj.setDescription(rs.getString("descricao"));
+				obj.setPrice(rs.getDouble("preco"));
 				return obj;
 			}
 			return null;
@@ -113,9 +122,9 @@ public class ProductDaoJDBC implements ProductDao{
 			while (rs.next()) {
 				Product obj = new Product();
 				obj.setId(rs.getInt("id"));
-				obj.setNome(rs.getString("nome"));
-				obj.setDescricao(rs.getString("descricao"));
-				obj.setPreco(rs.getDouble("preco"));
+				obj.setName(rs.getString("nome"));
+				obj.setDescription(rs.getString("descricao"));
+				obj.setPrice(rs.getDouble("preco"));
 				list.add(obj);
 			}
 			return list;

@@ -101,9 +101,7 @@ public class ChoiceViewController implements Initializable {
 				Program.configureStage(true, pane.getPrefWidth(), pane.getPrefHeight(), scene);
 				loadVBox(path, initializingAction);
 			} catch (Exception e) {
-
 			}
-
 		}
 	}
 
@@ -126,7 +124,5 @@ public class ChoiceViewController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 	}
-
 }

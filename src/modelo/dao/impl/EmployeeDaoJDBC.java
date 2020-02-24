@@ -37,24 +37,24 @@ public class EmployeeDaoJDBC implements EmployeeDao {
 			st = conn.prepareStatement("INSERT INTO funcionario (nome, cpf, cep , telefone, data_nascimento, "
 					+ "inicio_contrato, salario, departamentoId, fim_contrato) " + ""
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
-			if (obj.getFimContrato() != null) {
+			if (obj.getResignationDate() != null) {
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-				Date data = sdf.parse(obj.getFimContrato());
+				Date data = sdf.parse(obj.getResignationDate());
 				st.setDate(9, new java.sql.Date(data.getTime()));
 			} else {
 				st.setNull(9, Types.DATE);
 			}
-			st.setString(1, obj.getNome());
+			st.setString(1, obj.getName());
 			st.setString(2, obj.getCPF());
-			Date y = obj.getDataNascimento().getTime();
+			Date y = obj.getBirthDate().getTime();
 			st.setDate(5, new java.sql.Date(y.getTime()));
 			st.setString(3, obj.getCEP());
-			st.setString(4, obj.getTelefone());
-			Date x = obj.getInicioContrato().getTime();
+			st.setString(4, obj.getFone());
+			Date x = obj.getHiringDate().getTime();
 			st.setDate(6, new java.sql.Date(x.getTime()));
-			st.setDouble(7, obj.getSalario());
-			st.setInt(8, obj.getDepartamento().getId());
-			tirarFormatacao(obj);
+			st.setDouble(7, obj.getSalary());
+			st.setInt(8, obj.getDepartment().getId());
+			unformat(obj);
 			int rowsAffected = st.executeUpdate();
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
@@ -74,41 +74,41 @@ public class EmployeeDaoJDBC implements EmployeeDao {
 		}
 	}
 
-	private void tirarFormatacao(Employee obj) {
+	private void unformat(Employee obj) {
 		String cpf = obj.getCPF().substring(0, 3) + obj.getCPF().substring(4, 7) + obj.getCPF().substring(8, 11)
 				+ obj.getCPF().substring(12, 14);
 		obj.setCPF(cpf);
-		String telefone = obj.getTelefone().substring(1, 3) + obj.getTelefone().substring(4, 9)
-				+ obj.getTelefone().substring(10, 14);
-		obj.setTelefone(telefone);
+		String telefone = obj.getFone().substring(1, 3) + obj.getFone().substring(4, 9)
+				+ obj.getFone().substring(10, 14);
+		obj.setFone(telefone);
 		String cep = obj.getCEP().substring(0, 5) + obj.getCEP().substring(6, 9);
 		obj.setCEP(cep);
 	}
 
 	@Override
 	public void update(Employee obj) {
-		tirarFormatacao(obj);
+		unformat(obj);
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
 					"UPDATE funcionario SET nome = ? , cpf = ? , cep = ? , telefone = ? , data_nascimento = ?, inicio_contrato = ?, fim_contrato = ? , salario = ?, departamentoId = ? WHERE id = ?");
-			st.setString(1, obj.getNome());
+			st.setString(1, obj.getName());
 			st.setString(2, obj.getCPF());
 			st.setString(3, obj.getCEP());
-			st.setString(4, obj.getTelefone());
-			Date x = obj.getDataNascimento().getTime();
+			st.setString(4, obj.getFone());
+			Date x = obj.getBirthDate().getTime();
 			st.setDate(5, new java.sql.Date(x.getTime()));
-			x = obj.getInicioContrato().getTime();
+			x = obj.getHiringDate().getTime();
 			st.setDate(6, new java.sql.Date(x.getTime()));
-			if (obj.getFimContrato() != null) {
+			if (obj.getResignationDate() != null) {
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-				Date data = sdf.parse(obj.getFimContrato());
+				Date data = sdf.parse(obj.getResignationDate());
 				st.setDate(7, new java.sql.Date(data.getTime()));
 			} else {
 				st.setNull(7, Types.DATE);
 			}
-			st.setDouble(8, obj.getSalario());
-			st.setInt(9, obj.getDepartamento().getId());
+			st.setDouble(8, obj.getSalary());
+			st.setInt(9, obj.getDepartment().getId());
 			st.setInt(10, obj.getId());
 			st.executeUpdate();
 		} catch (Exception e) {
@@ -155,37 +155,37 @@ public class EmployeeDaoJDBC implements EmployeeDao {
 		return null;
 	}
 
-	private Department instanciarDepartamento(ResultSet rs) throws SQLException {
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
 		Department dep = new Department();
 		dep.setId(rs.getInt("departamentoId"));
 		dep.setName(rs.getString("depNome"));
 		return dep;
 	}
 
-	private Employee instanciarFuncionario(ResultSet rs, Department dep) throws SQLException {
+	private Employee instantiateEmployee(ResultSet rs, Department dep) throws SQLException {
 		Employee cliente = new Employee();
 		cliente.setId(rs.getInt("id"));
-		cliente.setNome(rs.getString("nome"));
+		cliente.setName(rs.getString("nome"));
 		cliente.setCPF(rs.getString("cpf"));
 		cliente.setCEP(rs.getString("cep"));
-		cliente.setTelefone(rs.getString("telefone"));
-		cliente.setSalario(rs.getDouble("salario"));
-		cliente.setDepartamento(dep);
+		cliente.setFone(rs.getString("telefone"));
+		cliente.setSalary(rs.getDouble("salario"));
+		cliente.setDepartment(dep);
 		Calendar x = Calendar.getInstance();
 		Date z = rs.getDate(5);
 		x.setTimeInMillis(z.getTime());
-		cliente.setDataNascimento(x);
+		cliente.setBirthDate(x);
 		Date y = rs.getDate(6);
 		Calendar o = Calendar.getInstance();
 		o.setTimeInMillis(y.getTime());
-		cliente.setInicioContrato(o);
+		cliente.setHiringDate(o);
 		Date a = (Date) rs.getObject("fim_contrato");
 		if (a != null) {
 			Calendar u = Calendar.getInstance();
 			u.setTimeInMillis(a.getTime());
-			cliente.setFimContrato(u);
+			cliente.setResignationDate(u);
 		} else {
-			cliente.setFimContrato(null);
+			cliente.setResignationDate(null);
 		}
 		return cliente;
 	}
@@ -204,10 +204,10 @@ public class EmployeeDaoJDBC implements EmployeeDao {
 			while (rs.next()) {
 				Department dep = map.get(rs.getInt("id"));
 				if (dep == null) {
-					dep = instanciarDepartamento(rs);
+					dep = instantiateDepartment(rs);
 					map.put(rs.getInt("id"), dep);
 				}
-				Employee seller = instanciarFuncionario(rs, dep);
+				Employee seller = instantiateEmployee(rs, dep);
 				sellers.add(seller);
 			}
 			return sellers;

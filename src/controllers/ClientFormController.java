@@ -153,7 +153,7 @@ public class ClientFormController implements Initializable {
 		}
 		if (txtCPF.getText() == null || txtCPF.getText().trim().equals("")) {
 			exception.addError("cpf", "  Campo vazio");
-		} else if (!Utils.verificarCpf(txtCPF.getText())) {
+		} else if (!Utils.verifyCPF(txtCPF.getText())) {
 			exception.removeError("cpf");
 			exception.addError("cpfInvalido", "  CPF invalido");
 		}
@@ -174,7 +174,7 @@ public class ClientFormController implements Initializable {
 		if (txtFone.getText() == null || txtFone.getText().trim().equals("")) {
 			exception.addError("telefone", "  Campo vazio");
 		}
-		cliente.setTelefone(txtFone.getText());
+		cliente.setFone(txtFone.getText());
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -186,17 +186,17 @@ public class ClientFormController implements Initializable {
 			throw new IllegalStateException("Objeto entidade estava nulo");
 		}
 		txtId.setText(String.valueOf(entity.getId()));
-		txtName.setText(entity.getNome());
+		txtName.setText(entity.getName());
 		txtCPF.setText(entity.getCPF());
 		Locale.setDefault(Locale.US);
 		txtCEP.setText(entity.getCEP());
-		Calendar x = entity.getDataNascimento();
+		Calendar x = entity.getBirthDate();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		if (x != null) {
 			String s = sdf.format(x.getTime());
 			dpBirthDate.setValue(LOCAL_DATE(String.valueOf(s)));
 		}
-		txtFone.setText(entity.getTelefone());
+		txtFone.setText(entity.getFone());
 	}
 
 	private final LocalDate LOCAL_DATE(String dateString) {

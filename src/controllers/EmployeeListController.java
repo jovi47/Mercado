@@ -100,16 +100,16 @@ public class EmployeeListController implements Initializable, Observer, ListCont
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		tableColumnCPF.setCellValueFactory(new PropertyValueFactory<>("CPF"));
 		tableColumnCEP.setCellValueFactory(new PropertyValueFactory<>("CEP"));
-		tableColumnFone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
-		tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("dataNascimento"));
-		tableColumnResignationDate.setCellValueFactory(new PropertyValueFactory<>("fimContrato"));
-		tableColumnHiringDate.setCellValueFactory(new PropertyValueFactory<>("inicioContrato"));
-		tableColumnSalary.setCellValueFactory(new PropertyValueFactory<>("salario"));
+		tableColumnFone.setCellValueFactory(new PropertyValueFactory<>("fone"));
+		tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+		tableColumnResignationDate.setCellValueFactory(new PropertyValueFactory<>("resignationDate"));
+		tableColumnHiringDate.setCellValueFactory(new PropertyValueFactory<>("hiringDate"));
+		tableColumnSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 		Utils.formatTableColumnDouble(tableColumnSalary, 2);
-		tableColumnDepartment.setCellValueFactory(new PropertyValueFactory<>("departamento"));
+		tableColumnDepartment.setCellValueFactory(new PropertyValueFactory<>("department"));
 		Utils.formatTableColumnDate(tableColumnBirthDate, "dd/MM/yyyy");
 		Utils.formatTableColumnDate(tableColumnHiringDate, "dd/MM/yyyy");
 		Stage stage = (Stage) Program.getStage().getScene().getWindow();

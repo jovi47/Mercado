@@ -74,14 +74,14 @@ public class StockListController implements Initializable, Observer, ListControl
 		Stage parentStage = Utils.currentStage(event);
 		Product p = new Product();
 		Stock obj = new Stock();
-		obj.setProduto(p);
+		obj.setProduct(p);
 		createDialogForm(obj, "/views/StockForm.fxml", parentStage);
 	}
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnIdProduct.setCellValueFactory(new PropertyValueFactory<>("produto"));
-		tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+		tableColumnIdProduct.setCellValueFactory(new PropertyValueFactory<>("product"));
+		tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 		Stage stage = (Stage) Program.getStage().getScene().getWindow();
 		tableViewStock.prefHeightProperty().bind(stage.heightProperty());
 	}

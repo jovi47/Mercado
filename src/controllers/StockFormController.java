@@ -115,21 +115,21 @@ public class StockFormController implements Initializable {
 		if (txtQuantity.getText() == null || txtQuantity.getText().trim().equals("")) {
 			exception.addError("quantidade", "  Campo vazio");
 		}
-		List<Product> y = list.stream().filter(x -> x.getNome().equalsIgnoreCase(txtProduct.getText()))
+		List<Product> y = list.stream().filter(x -> x.getName().equalsIgnoreCase(txtProduct.getText()))
 				.collect(Collectors.toList());
 		ProductService service = new ProductService();
 		if (estoque.getId() != null) {
 
 		} else {
 			if (y.size() > 0) {
-				estoque.setProduto(y.get(0));
+				estoque.setProduct(y.get(0));
 				Product p = service.findById(y.get(0).getId());
 				if (p != null) {
 					exception.addError("produtoDb", "  Produto ja cadastrado");
 				}
 			}
 		}
-		estoque.setQuantidade(Utils.tryParseToInt(txtQuantity.getText()));
+		estoque.setQuantity(Utils.tryParseToInt(txtQuantity.getText()));
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -146,8 +146,8 @@ public class StockFormController implements Initializable {
 			throw new IllegalStateException("Entity was null");
 		}
 		txtId.setText((entity.getId() == null) ? "" : String.valueOf(entity.getId()));
-		txtProduct.setText(entity.getProduto().getNome());
-		txtQuantity.setText((entity.getId() == null) ? "" : String.valueOf(entity.getQuantidade()));
+		txtProduct.setText(entity.getProduct().getName());
+		txtQuantity.setText((entity.getId() == null) ? "" : String.valueOf(entity.getQuantity()));
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {

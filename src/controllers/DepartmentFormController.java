@@ -24,14 +24,19 @@ import views.util.Constraints;
 import views.util.Utils;
 
 public class DepartmentFormController implements Initializable {
+	
 	@FXML
 	private TextField txtId;
+	
 	@FXML
 	private TextField txtName;
+	
 	@FXML
 	private Label lblErrorName;
+	
 	@FXML
 	private Button btSave;
+	
 	@FXML
 	private Button btCancel;
 

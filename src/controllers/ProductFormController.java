@@ -109,15 +109,15 @@ public class ProductFormController implements Initializable {
 		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("nome", " Campo vazio");
 		}
-		produto.setNome(txtName.getText());
+		produto.setName(txtName.getText());
 		if (txtDescription.getText() == null || txtDescription.getText().trim().equals("")) {
 			exception.addError("descricao", "Campo vazio");
 		}
-		produto.setDescricao(txtDescription.getText());
+		produto.setDescription(txtDescription.getText());
 		if (txtPrice.getText() == null || txtPrice.getText().trim().equals("")) {
 			exception.addError("preco", "Campo vazio");
 		}
-		produto.setPreco(Utils.tryParseToDouble(txtPrice.getText()));
+		produto.setPrice(Utils.tryParseToDouble(txtPrice.getText()));
 		System.out.println(exception.getErrors().size());
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -141,9 +141,9 @@ public class ProductFormController implements Initializable {
 			throw new IllegalStateException("Objeto entidade estava nulo");
 		}
 		txtId.setText(String.valueOf(entity.getId()));
-		txtName.setText(entity.getNome());
-		txtDescription.setText(entity.getDescricao());
-		txtPrice.setText(String.valueOf(entity.getPreco()));
+		txtName.setText(entity.getName());
+		txtDescription.setText(entity.getDescription());
+		txtPrice.setText(String.valueOf(entity.getPrice()));
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {

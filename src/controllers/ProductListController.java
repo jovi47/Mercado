@@ -80,9 +80,9 @@ public class ProductListController implements Initializable, Observer, ListContr
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-		tableColumnPrice.setCellValueFactory(new PropertyValueFactory<>("preco"));
+		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+		tableColumnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 		Utils.formatTableColumnDouble(tableColumnPrice, 2);
 		Stage stage = (Stage) Program.getStage().getScene().getWindow();
 		tableViewProduct.prefHeightProperty().bind(stage.heightProperty());

@@ -30,13 +30,14 @@ public class ClientDaoJDBC implements ClientDao {
 			st = conn.prepareStatement(
 					"INSERT INTO cliente (nome, cpf, cep , telefone, data_nascimento ) VALUES (?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
-			tirarFormatacao(obj);
-			st.setString(1, obj.getNome());
+
+			unformat(obj);
+			st.setString(1, obj.getName());
 			st.setString(2, obj.getCPF());
-			Date x = obj.getDataNascimento().getTime();
+			Date x = obj.getBirthDate().getTime();
 			st.setDate(5, new java.sql.Date(x.getTime()));
 			st.setString(3, obj.getCEP());
-			st.setString(4, obj.getTelefone());
+			st.setString(4, obj.getFone());
 			int rowsAffected = st.executeUpdate();
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
@@ -55,31 +56,32 @@ public class ClientDaoJDBC implements ClientDao {
 		}
 	}
 
-	private void tirarFormatacao(Client obj) {
+	private void unformat(Client obj) {
 		String cpf = obj.getCPF().substring(0, 3) + obj.getCPF().substring(4, 7) + obj.getCPF().substring(8, 11)
 				+ obj.getCPF().substring(12, 14);
 		obj.setCPF(cpf);
-		String telefone = obj.getTelefone().substring(1, 3) + obj.getTelefone().substring(4, 9)
-				+ obj.getTelefone().substring(10, 14);
-		obj.setTelefone(telefone);
+		String telefone = obj.getFone().substring(1, 3) + obj.getFone().substring(4, 9)
+				+ obj.getFone().substring(10, 14);
+		obj.setFone(telefone);
 		String cep = obj.getCEP().substring(0, 5) + obj.getCEP().substring(6, 9);
 		obj.setCEP(cep);
 	}
 
 	@Override
 	public void update(Client obj) {
-		tirarFormatacao(obj);
+
+		unformat(obj);
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
 					"UPDATE cliente SET nome = ? , cpf = ? , cep = ? , telefone = ? , data_nascimento = ? WHERE id = ?");
-			st.setString(1, obj.getNome());
+			st.setString(1, obj.getName());
 			st.setString(2, obj.getCPF());
 
-			Date x = obj.getDataNascimento().getTime();
+			Date x = obj.getBirthDate().getTime();
 			st.setDate(5, new java.sql.Date(x.getTime()));
 			st.setString(3, obj.getCEP());
-			st.setString(4, obj.getTelefone());
+			st.setString(4, obj.getFone());
 			st.setInt(6, obj.getId());
 			st.executeUpdate();
 		} catch (Exception e) {
@@ -112,7 +114,7 @@ public class ClientDaoJDBC implements ClientDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Client obj = instanciarCliente(rs);
+				Client obj = instantiateClient(rs);
 				return obj;
 			}
 			return null;
@@ -124,13 +126,13 @@ public class ClientDaoJDBC implements ClientDao {
 		}
 	}
 
-	private Client instanciarCliente(ResultSet rs) throws SQLException {
+	private Client instantiateClient(ResultSet rs) throws SQLException {
 		Client cliente = new Client();
 		cliente.setId(rs.getInt("id"));
-		cliente.setNome(rs.getString("nome"));
+		cliente.setName(rs.getString("nome"));
 		cliente.setCPF(rs.getString("cpf"));
 		cliente.setCEP(rs.getString("cep"));
-		cliente.setTelefone(rs.getString("telefone"));
+		cliente.setFone(rs.getString("telefone"));
 		Calendar x = Calendar.getInstance();
 		x.setTimeInMillis(new java.util.Date(rs.getTimestamp("data_nascimento").getTime()).getTime());
 		cliente.setDataNascimento(x);
@@ -146,7 +148,7 @@ public class ClientDaoJDBC implements ClientDao {
 			rs = st.executeQuery();
 			List<Client> list = new ArrayList<>();
 			while (rs.next()) {
-				Client obj = (instanciarCliente(rs));
+				Client obj = (instantiateClient(rs));
 				list.add(obj);
 			}
 			return list;

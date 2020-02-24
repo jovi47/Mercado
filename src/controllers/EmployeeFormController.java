@@ -147,7 +147,7 @@ public class EmployeeFormController implements Initializable {
 	}
 
 	private void notifyDataChangeListeners() {
-		for (Observer listener :observers) {
+		for (Observer listener : observers) {
 			listener.updateData();
 		}
 	}
@@ -172,7 +172,7 @@ public class EmployeeFormController implements Initializable {
 		Constraints.foneField(txtFone);
 		Constraints.setTextFieldMaxLength(txtName, 255);
 		Constraints.setTextFieldDouble(txtSalary);
-		initializeComboBoxDepartment(); 
+		initializeComboBoxDepartment();
 	}
 
 	private Employee getFormData() {
@@ -182,10 +182,10 @@ public class EmployeeFormController implements Initializable {
 		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("nome", "  Campo vazio");
 		}
-		cliente.setNome(txtName.getText());
+		cliente.setName(txtName.getText());
 		if (txtCPF.getText() == null || txtCPF.getText().trim().equals("")) {
 			exception.addError("cpf", "  Campo vazio");
-		} else if (!Utils.verificarCpf(txtCPF.getText())) {
+		} else if (!Utils.verifyCPF(txtCPF.getText())) {
 			exception.removeError("cpf");
 			exception.addError("cpfInvalido", "  CPF invalido");
 		}
@@ -196,7 +196,7 @@ public class EmployeeFormController implements Initializable {
 			Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
 			Calendar x = Calendar.getInstance();
 			x.setTime(Date.from(instant));
-			cliente.setDataNascimento(x);
+			cliente.setBirthDate(x);
 		}
 		if (dpHiringDate.getValue() == null) {
 			exception.addError("inicioContrato", "  Campo vazio");
@@ -204,32 +204,29 @@ public class EmployeeFormController implements Initializable {
 			Instant instant = Instant.from(dpHiringDate.getValue().atStartOfDay(ZoneId.systemDefault()));
 			Calendar x = Calendar.getInstance();
 			x.setTime(Date.from(instant));
-			cliente.setInicioContrato(x);
+			cliente.setHiringDate(x);
 		}
 		if (dpResignationDate.getValue() != null) {
 			Instant instant = Instant.from(dpResignationDate.getValue().atStartOfDay(ZoneId.systemDefault()));
 			Calendar x = Calendar.getInstance();
 			x.setTime(Date.from(instant));
-			cliente.setFimContrato(x);
-		}else {
-			cliente.setFimContrato(null);
+			cliente.setResignationDate(x);
+		} else {
+			cliente.setResignationDate(null);
 		}
 		if (txtCEP.getText() == null || txtCEP.getText().trim().equals("")) {
 			exception.addError("cep", "  Campo vazio");
 		}
 		cliente.setCEP(txtCEP.getText());
-
 		if (txtFone.getText() == null || txtFone.getText().trim().equals("")) {
 			exception.addError("telefone", "  Campo vazio");
 		}
-		cliente.setTelefone(txtFone.getText());
+		cliente.setFone(txtFone.getText());
 		if (txtSalary.getText() == null || txtSalary.getText().trim().equals("")) {
 			exception.addError("salario", "  Campo vazio");
 		}
-		cliente.setSalario(Utils.tryParseToDouble(txtSalary.getText()));
-
-		cliente.setDepartamento(cbDepartment.getValue());
-
+		cliente.setSalary(Utils.tryParseToDouble(txtSalary.getText()));
+		cliente.setDepartment(cbDepartment.getValue());
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -241,30 +238,29 @@ public class EmployeeFormController implements Initializable {
 			throw new IllegalStateException("Objeto entidade estava nulo");
 		}
 		txtId.setText(String.valueOf(entity.getId()));
-		txtName.setText(entity.getNome());
+		txtName.setText(entity.getName());
 		txtCPF.setText(entity.getCPF());
-		txtSalary.setText(String.format("%.2f", entity.getSalario()));
-		Calendar x = entity.getDataNascimento();
+		txtSalary.setText(String.format("%.2f", entity.getSalary()));
+		Calendar x = entity.getBirthDate();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		txtCEP.setText(entity.getCEP());
-		txtFone.setText(entity.getTelefone());
+		txtFone.setText(entity.getFone());
 		if (x != null) {
 			String s = sdf.format(x.getTime());
 			dpBirthDate.setValue(LOCAL_DATE(String.valueOf(s)));
 		}
-		x = entity.getInicioContrato();
+		x = entity.getHiringDate();
 		if (x != null) {
 			String s = sdf.format(x.getTime());
 			dpHiringDate.setValue(LOCAL_DATE(String.valueOf(s)));
 		}
-		
-		if (entity.getFimContrato() != null) {
-			dpResignationDate.setValue(LOCAL_DATE(String.valueOf(entity.getFimContrato())));
+		if (entity.getResignationDate() != null) {
+			dpResignationDate.setValue(LOCAL_DATE(String.valueOf(entity.getResignationDate())));
 		}
-		if (entity.getDepartamento() == null) {
+		if (entity.getDepartment() == null) {
 			cbDepartment.getSelectionModel().selectFirst();
 		} else {
-			cbDepartment.setValue(entity.getDepartamento());
+			cbDepartment.setValue(entity.getDepartment());
 		}
 	}
 
@@ -288,14 +284,13 @@ public class EmployeeFormController implements Initializable {
 
 	private void initializeComboBoxDepartment() {
 		Callback<ListView<Department>, ListCell<Department>> factory = lv -> new ListCell<Department>() {
+
 			@Override
 			protected void updateItem(Department item, boolean empty) {
 				super.updateItem(item, empty);
 				setText(empty ? "" : item.getName());
-
 			}
 		};
-
 		cbDepartment.setCellFactory(factory);
 		cbDepartment.setButtonCell(factory.call(null));
 	}

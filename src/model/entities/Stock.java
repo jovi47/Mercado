@@ -7,15 +7,15 @@ public class Stock extends Entity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	private Product produto;
-	private Integer quantidade;
+	private Product product;
+	private Integer quantity;
 
-	public Product getProduto() {
-		return produto;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProduto(Product produto) {
-		this.produto = produto;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public Integer getId() {
@@ -26,12 +26,12 @@ public class Stock extends Entity implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 }

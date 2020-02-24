@@ -32,8 +32,8 @@ public class StockDaoJDBC implements StockDao {
 		try {
 			st = conn.prepareStatement("INSERT INTO estoque (id_produto, quantidade ) VALUES (?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
-			st.setInt(1, obj.getProduto().getId());
-			st.setInt(2, obj.getQuantidade());
+			st.setInt(1, obj.getProduct().getId());
+			st.setInt(2, obj.getQuantity());
 			int rowsAffected = st.executeUpdate();
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
@@ -58,7 +58,7 @@ public class StockDaoJDBC implements StockDao {
 		try {
 			st = conn.prepareStatement("UPDATE estoque SET  quantidade = ? WHERE id = ? ");
 		
-			st.setInt(1, obj.getQuantidade());
+			st.setInt(1, obj.getQuantity());
 			st.setInt(2, obj.getId());
 			st.executeUpdate();
 		} catch (Exception e) {
@@ -88,21 +88,21 @@ public class StockDaoJDBC implements StockDao {
 		return null;
 	}
 
-	private Product instanciarProduto(ResultSet rs) throws SQLException {
+	private Product instantiateProduct(ResultSet rs) throws SQLException {
 		Product obj = new Product();
 		obj.setId(rs.getInt("id_produto"));
-		obj.setNome(rs.getString("produtoNome"));
-		obj.setDescricao(rs.getString("pDescricao"));
-		obj.setPreco(rs.getDouble("pPreco"));
+		obj.setName(rs.getString("produtoNome"));
+		obj.setDescription(rs.getString("pDescricao"));
+		obj.setPrice(rs.getDouble("pPreco"));
 		return obj;
 
 	}
 
-	private Stock instanciarEstoque(ResultSet rs, Product pro) throws SQLException {
+	private Stock instantiateStock(ResultSet rs, Product pro) throws SQLException {
 		Stock est = new Stock();
 		est.setId(rs.getInt("id"));
-		est.setProduto(pro);
-		est.setQuantidade(rs.getInt("quantidade"));
+		est.setProduct(pro);
+		est.setQuantity(rs.getInt("quantidade"));
 		return est;
 	}
 
@@ -121,10 +121,10 @@ public class StockDaoJDBC implements StockDao {
 			while (rs.next()) {
 				Product pro = map.get(rs.getInt("id_produto"));
 				if (pro == null) {
-					pro = instanciarProduto(rs);
+					pro = instantiateProduct(rs);
 					map.put(rs.getInt("id"), pro);
 				}
-				Stock estoq = instanciarEstoque(rs, pro);
+				Stock estoq =  instantiateStock(rs, pro);
 				estoque.add(estoq);
 			}
 			return estoque;

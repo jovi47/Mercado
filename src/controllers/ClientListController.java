@@ -35,6 +35,7 @@ import views.util.Utils;
 public class ClientListController implements Initializable, Observer, ListController {
 
 	private ClientService service;
+	
 	@FXML
 	private TableView<Client> tableViewCliente;
 
@@ -89,11 +90,11 @@ public class ClientListController implements Initializable, Observer, ListContro
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		tableColumnCPF.setCellValueFactory(new PropertyValueFactory<>("CPF"));
 		tableColumnCEP.setCellValueFactory(new PropertyValueFactory<>("CEP"));
-		tableColumnFone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
-		tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("dataNascimento"));
+		tableColumnFone.setCellValueFactory(new PropertyValueFactory<>("fone"));
+		tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 		Utils.formatTableColumnDate(tableColumnBirthDate, "dd/MM/yyyy");
 		Stage stage = (Stage) Program.getStage().getScene().getWindow();
 		tableViewCliente.prefHeightProperty().bind(stage.heightProperty());
@@ -151,6 +152,5 @@ public class ClientListController implements Initializable, Observer, ListContro
 				Alerts.showAlert("Erro removendo objeto", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
-
 	}
 }

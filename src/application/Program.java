@@ -8,9 +8,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Program extends Application {
+
 	private static Stage stage;
-
-
 
 	@Override
 	public void start(Stage initialStage) {
@@ -42,5 +41,4 @@ public class Program extends Application {
 	public static Stage getStage() {
 		return stage;
 	}
-
 }

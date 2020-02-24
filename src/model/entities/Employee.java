@@ -9,54 +9,47 @@ public class Employee extends Entity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	private String nome;
+	private String name;
 	private String CPF;
 	private String CEP;
-	private String telefone;
-	private Calendar dataNascimento;
-	private Department departamento;
-	private Double salario;
-	private Calendar inicioContrato;
-	private Calendar fimContrato;
+	private String fone;
+	private Calendar birthDate;
+	private Department department;
+	private Double salary;
+	private Calendar hiringDate;
+	private Calendar resignationDate;
 
-	@Override
-	public String toString() {
-		return "Funcionario [id=" + id + ", nome=" + nome + ", CPF=" + CPF + ", CEP=" + CEP + ", telefone=" + telefone
-				+ ", dataNascimento=" + dataNascimento + ", departamento=" + departamento + ", salario=" + salario
-				+ ", inicioContrato=" + inicioContrato + ", fimContrato=" + fimContrato + "]";
+	public Department getDepartment() {
+		return department;
 	}
 
-	public Department getDepartamento() {
-		return departamento;
+	public void setDepartment(Department departamento) {
+		this.department = departamento;
 	}
 
-	public void setDepartamento(Department departamento) {
-		this.departamento = departamento;
+	public Double getSalary() {
+		return salary;
 	}
 
-	public Double getSalario() {
-		return salario;
+	public void setSalary(Double salary) {
+		this.salary = salary;
 	}
 
-	public void setSalario(Double salario) {
-		this.salario = salario;
+	public Calendar getHiringDate() {
+		return hiringDate;
 	}
 
-	public Calendar getInicioContrato() {
-		return inicioContrato;
+	public void setHiringDate(Calendar hiringDate) {
+		this.hiringDate = hiringDate;
 	}
 
-	public void setInicioContrato(Calendar inicioContrato) {
-		this.inicioContrato = inicioContrato;
-	}
-
-	public String getFimContrato() {
+	public String getResignationDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		return (fimContrato == null) ? null : sdf.format(fimContrato.getTime());
+		return (resignationDate == null) ? null : sdf.format(resignationDate.getTime());
 	}
 
-	public void setFimContrato(Calendar fimContrato) {
-		this.fimContrato = fimContrato;
+	public void setResignationDate(Calendar resignationDate) {
+		this.resignationDate = resignationDate;
 	}
 
 	public Integer getId() {
@@ -67,12 +60,12 @@ public class Employee extends Entity implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getCPF() {
@@ -91,20 +84,20 @@ public class Employee extends Entity implements Serializable {
 		this.CEP = CEP;
 	}
 
-	public String getTelefone() {
-		return telefone;
+	public String getFone() {
+		return fone;
 	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setFone(String fone) {
+		this.fone = fone;
 	}
 
-	public Calendar getDataNascimento() {
-		return dataNascimento;
+	public Calendar getBirthDate() {
+		return birthDate;
 	}
 
-	public void setDataNascimento(Calendar dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setBirthDate(Calendar birthDate) {
+		this.birthDate = birthDate;
 	}
 
 }

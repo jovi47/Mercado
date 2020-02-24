@@ -12,15 +12,12 @@ import controllers.ListController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.Image;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import model.entities.Entity;
@@ -118,9 +115,9 @@ public class Utils {
 		dialogStage.getIcons().add(icone);
 	}
 
-	public static Boolean verificarCpf(String cpfVerificar) {
-		String cpf = cpfVerificar.substring(0, 3) + cpfVerificar.substring(4, 7) + cpfVerificar.substring(8, 11)
-				+ cpfVerificar.substring(12, 14);
+	public static Boolean verifyCPF(String cpfWithFormat) {
+		String cpf = cpfWithFormat.substring(0, 3) + cpfWithFormat.substring(4, 7) + cpfWithFormat.substring(8, 11)
+				+ cpfWithFormat.substring(12, 14);
 		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
 				|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
 				|| cpf.equals("66666666666") || cpf.equals("77777777777") || cpf.equals("88888888888")
@@ -195,14 +192,5 @@ public class Utils {
 				button.setOnAction(event -> controller.createDialogForm((Entity) obj, path, Program.getStage()));
 			}
 		});
-	}
-	
-	public static void createDialogForm(String title, Parent parent, Stage parentStage, Stage dialogStage) {
-		dialogStage.setTitle("Digite dados do cliente");
-		dialogStage.setScene(new Scene(parent));
-		dialogStage.setResizable(false);
-		dialogStage.initOwner(parentStage);
-		dialogStage.initModality(Modality.WINDOW_MODAL);
-		dialogStage.showAndWait();
 	}
 }
